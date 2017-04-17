@@ -119,7 +119,7 @@ button:hover {
 
 .invalid,
 .invalid:focus {
-	border: 3px solid firebrick;
+	border: 2px solid firebrick;
 	background: lightpink;
 }
 
