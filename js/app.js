@@ -15,9 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const $activities = $('.activities');
     const $registerButton = $('button[type=submit]');
     const $creditCardInput = $('#cc-num');
-    const $zipCode = $('#zip');
-    const $cvv = $('#cvv');
+    const $zipCodeInput = $('#zip');
+    const $cvvInput = $('#cvv');
     const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const zipCodeRegExp = /^\d{5}$/;
+    const cvvRegExp = /^\d{3}$/;
+    const creditCardRegExp = /^\d{13,16}$/;
 
     // BASIC INFO
 	// Autofocus on the name text input on page load
@@ -230,7 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $creditCardInput.keyup(function () {
-        const isValidCreditCard = $creditCardInput.val().length >= 13 && $creditCardInput.val().length <= 16;
+        const $creditCardValue = $creditCardInput.val();
+        const isValidCreditCard = $creditCardValue > 0 && creditCardRegExp.test($creditCardValue);
 
         if(!isValidCreditCard) {
             $creditCardInput.addClass('invalid');
@@ -240,23 +244,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    $zipCode.keyup(function () {
-        const isValidZipCode = $zipCode.val().length === 5;
+    $zipCodeInput.keyup(function () {
+        const $zipCodeValue = $zipCodeInput.val();
+        const isValidZipCode = $zipCodeValue.length > 0 && zipCodeRegExp.test($zipCodeValue);
 
         if(!isValidZipCode) {
-            $zipCode.addClass('invalid');
+            $zipCodeInput.addClass('invalid');
         } else {
-            $zipCode.removeClass('invalid');
+            $zipCodeInput.removeClass('invalid');
         }
     });
 
-    $cvv.keyup(function () {
-        const isValidCVV = $cvv.val().length === 3;
+    $cvvInput.keyup(function () {
+        const $cvvValue = $cvvInput.val();
+        const isValidCVV = $cvvValue.length > 0 && cvvRegExp.test($cvvValue);
 
         if (!isValidCVV) {
-            $cvv.addClass('invalid');
+            $cvvInput.addClass('invalid');
         } else {
-            $cvv.removeClass('invalid');
+            $cvvInput.removeClass('invalid');
         }
     });
 
@@ -265,11 +271,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
+        const $creditCardValue = $creditCardInput.val();
+        const $zipCodeValue = $zipCodeInput.val();
+        const $cvvValue = $cvvInput.val();
         const isValidName = $name.val().length > 0;
         const isValidEmail = $email.val().length > 0 && emailRegExp.test($email.val());
-        const isValidCreditCard = $creditCardInput.val().length >= 13 && $creditCardInput.val().length <= 16;
-        const isValidZipCode = $zipCode.val().length === 5;
-        const isValidCVV = $cvv.val().length === 3;
+        const isValidCreditCard = $creditCardValue > 0 && creditCardRegExp.test($creditCardValue);
+        const isValidZipCode = $zipCodeValue.length > 0 && zipCodeRegExp.test($zipCodeValue);
+        const isValidCVV = $cvvValue.length > 0 && cvvRegExp.test($cvvValue);
 
 
         if (!isValidName) {
@@ -301,17 +310,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if(!isValidZipCode) {
-            $zipCode.addClass('invalid');
+            $zipCodeInput.addClass('invalid');
             e.preventDefault();
         } else {
-            $zipCode.removeClass('invalid');
+            $zipCodeInput.removeClass('invalid');
         }
 
         if (!isValidCVV) {
-            $cvv.addClass('invalid');
+            $cvvInput.addClass('invalid');
             e.preventDefault();
         } else {
-            $cvv.removeClass('invalid');
+            $cvvInput.removeClass('invalid');
         }
 
     });
