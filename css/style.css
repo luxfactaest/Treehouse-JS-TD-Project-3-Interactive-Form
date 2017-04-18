@@ -123,9 +123,10 @@ button:hover {
 	background: lightpink;
 }
 
-.activities-unchecked-error {
-	font-size: 1.125em;
+.error-message {
+	font-size: 1em;
 	color: firebrick;
+	padding-bottom: 10px;
 }
 
 

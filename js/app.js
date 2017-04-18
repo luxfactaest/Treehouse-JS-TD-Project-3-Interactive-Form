@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const $paymentType = $('#payment');
     const $name = $('#name');
     const $email = $('#mail');
-    const $activities = $('.activities');
     const $registerButton = $('button[type=submit]');
     const $creditCardInput = $('#cc-num');
     const $zipCodeInput = $('#zip');
@@ -225,10 +224,19 @@ document.addEventListener('DOMContentLoaded', function() {
     $email.keyup(function () {
         const isValidEmail = $email.val().length > 0 && emailRegExp.test($email.val());
 
+        if ($email.val().length === 0) {
+            $('#no-email-error').show();
+        } else if ($email.val().length > 0) {
+            $('#no-email-error').hide();
+        }
+
         if (!isValidEmail) {
             $email.addClass('invalid');
+            $('#invalid-email-error').show();
         } else {
             $email.removeClass('invalid');
+            $('#invalid-email-error').hide();
+
         }
     });
 
@@ -238,8 +246,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(!isValidCreditCard) {
             $creditCardInput.addClass('invalid');
+            $('#invalid-cc-error').show();
         } else {
             $creditCardInput.removeClass('invalid');
+            $('#invalid-cc-error').hide();
+
         }
 
     });
@@ -250,8 +261,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(!isValidZipCode) {
             $zipCodeInput.addClass('invalid');
+            $('#invalid-zip-error').show();
         } else {
             $zipCodeInput.removeClass('invalid');
+            $('#invalid-zip-error').hide();
+
         }
     });
 
@@ -261,16 +275,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!isValidCVV) {
             $cvvInput.addClass('invalid');
+            $('#invalid-cvv-error').show();
         } else {
             $cvvInput.removeClass('invalid');
+            $('#invalid-cvv-error').hide();
+
         }
     });
 
+
     // Form validation for Registration submit button
     $registerButton.on('click', function (e) {
-
-        e.preventDefault();
-
         const $creditCardValue = $creditCardInput.val();
         const $zipCodeValue = $zipCodeInput.val();
         const $cvvValue = $cvvInput.val();
@@ -288,6 +303,12 @@ document.addEventListener('DOMContentLoaded', function() {
             $name.removeClass('invalid');
         }
 
+        if ($email.val().length === 0) {
+            $('#no-email-error').show();
+        } else {
+            $('#no-email-error').hide();
+        }
+
         if (!isValidEmail) {
             $email.addClass('invalid');
             e.preventDefault();
@@ -296,31 +317,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if($('input[type=checkbox]:checked').length === 0) {
-            $activities.append('<div class="activities-unchecked-error">Please select at least one activity.</div>');
+            $('#activities-unchecked-error').show();
             e.preventDefault();
         } else {
-            $('.activities-unchecked-error').remove();
+            $('#activities-unchecked-error').hide();
         }
 
         if(!isValidCreditCard) {
             $creditCardInput.addClass('invalid');
+            $('#invalid-cc-error').show();
             e.preventDefault();
         } else {
             $creditCardInput.removeClass('invalid');
+            $('#invalid-cc-error').hide();
         }
 
         if(!isValidZipCode) {
             $zipCodeInput.addClass('invalid');
+            $('#invalid-zip-error').show();
             e.preventDefault();
         } else {
             $zipCodeInput.removeClass('invalid');
+            $('#invalid-zip-error').hide();
         }
 
         if (!isValidCVV) {
             $cvvInput.addClass('invalid');
+            $('#invalid-cvv-error').show();
             e.preventDefault();
         } else {
             $cvvInput.removeClass('invalid');
+            $('#invalid-cvv-error').hide();
         }
 
     });
