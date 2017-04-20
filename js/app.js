@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-	const $jobRoleOther = $('#other-title');
-	const $tShirtColors = $('#colors-js-puns');
-	const $title = $('#title');
+    const $jobRoleOther = $('#other-title');
+    const $tShirtColors = $('#colors-js-puns');
+    const $title = $('#title');
     const $color = $('#color');
-	const $jsPunsColors = $color.find('.js-puns');
-	const $heartJSColors = $color.find('.heart-js');
-	const $design = $('#design');
+    const $jsPunsColors = $color.find('.js-puns');
+    const $heartJSColors = $color.find('.heart-js');
+    const $design = $('#design');
     const $creditCard = $('#credit-card');
     const $paypal = $('#paypal');
     const $bitcoin = $('#bitcoin');
@@ -22,191 +22,191 @@ document.addEventListener('DOMContentLoaded', function() {
     const creditCardRegExp = /^\d{13,16}$/;
 
     // BASIC INFO
-	// Autofocus on the name text input on page load
+    // Autofocus on the name text input on page load
     $name.focus();
 
-	// 	JOB ROLE
-	// When 'other' is selected from the dropdown menu, a new 'job role' text field is created
+    // 	JOB ROLE
+    // When 'other' is selected from the dropdown menu, a new 'job role' text field is created
 
-	$jobRoleOther.hide();
-	$title.change(function() {
-		if ($title.val() === 'other') {
-			$jobRoleOther.show();
-		} else {
-			$jobRoleOther.hide();
-		}
-	});
+    $jobRoleOther.hide();
+    $title.change(function() {
+        if ($title.val() === 'other') {
+            $jobRoleOther.show();
+        } else {
+            $jobRoleOther.hide();
+        }
+    });
 
-	// T-SHIRT
-	//Color label is hidden unless a design theme is selected
-	
-	$tShirtColors.hide();
+    // T-SHIRT
+    //Color label is hidden unless a design theme is selected
+
+    $tShirtColors.hide();
     $design.change(function() {
-		if ($design.val() === 'Select Theme') {
-			$tShirtColors.hide();
-		} else {
-			$tShirtColors.show();
-		}
-	});
+        if ($design.val() === 'Select Theme') {
+            $tShirtColors.hide();
+        } else {
+            $tShirtColors.show();
+        }
+    });
 
-	// When a design theme is selected, the color options matching that theme are shown,
-	// and the options not matching are hidden.
+    // When a design theme is selected, the color options matching that theme are shown,
+    // and the options not matching are hidden.
 
     $design.change(function() {
-		const $designTheme = $design.val();
+        const $designTheme = $design.val();
 
-		for (let i = 0; i <= $design.children().length; i++) {
-			if ($designTheme === 'js puns') {
-				$heartJSColors.hide();
-				$jsPunsColors.show();
+        for (let i = 0; i <= $design.children().length; i++) {
+            if ($designTheme === 'js puns') {
+                $heartJSColors.hide();
+                $jsPunsColors.show();
                 $color.val('');
-			} else if ($designTheme === 'heart js') {
-				$jsPunsColors.hide();
-				$heartJSColors.show();
+            } else if ($designTheme === 'heart js') {
+                $jsPunsColors.hide();
+                $heartJSColors.show();
                 $color.val('');
-			}
-		}
-	});
+            }
+        }
+    });
 
-	// When an activity checkbox is checked, the checkboxes for other activities
-	// in the same time slow are disabled.
+    // When an activity checkbox is checked, the checkboxes for other activities
+    // in the same time slow are disabled.
 
-	$('.activities input').on('change', function() {
-	    const $mainConference = $('input[name=all]');
-	    const $jsFrameworks = $('input[name=js-frameworks]');
-	    const $express = $('input[name=express]');
-	    const $jsLibs = $('input[name=js-libs]');
-	    const $node = $('input[name=node]');
-	    const $buildTools = $('input[name=build-tools]');
-	    const $npm = $('input[name=npm]');
+    $('.activities input').on('change', function() {
+        const $mainConference = $('input[name=all]');
+        const $jsFrameworks = $('input[name=js-frameworks]');
+        const $express = $('input[name=express]');
+        const $jsLibs = $('input[name=js-libs]');
+        const $node = $('input[name=node]');
+        const $buildTools = $('input[name=build-tools]');
+        const $npm = $('input[name=npm]');
 
-		let mainConferenceCost = 0;
-		let jsFrameworksCost = 0;
-		let jsLibrariesCost = 0;
-		let expressCost = 0;
-		let nodeCost = 0;
-		let buildToolsCost = 0;
-		let npmCost = 0;
-		let totalCost = 0;
+        let mainConferenceCost = 0;
+        let jsFrameworksCost = 0;
+        let jsLibrariesCost = 0;
+        let expressCost = 0;
+        let nodeCost = 0;
+        let buildToolsCost = 0;
+        let npmCost = 0;
+        let totalCost = 0;
 
-		//Keep a running total of the total cost
-		function getTotalCost() {
-			totalCost = mainConferenceCost + jsFrameworksCost + jsLibrariesCost + expressCost + nodeCost + buildToolsCost + npmCost;
-			return totalCost;
-		}
-		
-		if ($mainConference.is(':checked')) {
-			mainConferenceCost = 200;
-		} else {
-			mainConferenceCost = 0;
-		}
+        //Keep a running total of the total cost
+        function getTotalCost() {
+            totalCost = mainConferenceCost + jsFrameworksCost + jsLibrariesCost + expressCost + nodeCost + buildToolsCost + npmCost;
+            return totalCost;
+        }
 
-		if ($jsFrameworks.is(':checked')) {
+        if ($mainConference.is(':checked')) {
+            mainConferenceCost = 200;
+        } else {
+            mainConferenceCost = 0;
+        }
+
+        if ($jsFrameworks.is(':checked')) {
             $express.prop({
-				disabled: true
-			});
+                disabled: true
+            });
             $express.parent().addClass('disabled');
-			jsFrameworksCost = 100;
+            jsFrameworksCost = 100;
 
-		} else {
+        } else {
             $express.prop({
-				disabled: false
-			});
+                disabled: false
+            });
             $express.parent().removeClass('disabled');
-			jsFrameworksCost = 0;
-		}
+            jsFrameworksCost = 0;
+        }
 
-		if ($express.is(':checked')) {
+        if ($express.is(':checked')) {
             $jsFrameworks.prop({
-				disabled: true
-			});
+                disabled: true
+            });
             $jsFrameworks.parent().addClass('disabled');
-			expressCost = 100;
-		} else {
-			$jsFrameworks.prop({
-				disabled: false
-			});
+            expressCost = 100;
+        } else {
+            $jsFrameworks.prop({
+                disabled: false
+            });
             $jsFrameworks.parent().removeClass('disabled');
-			expressCost = 0;
-		}
+            expressCost = 0;
+        }
 
-		if ($jsLibs.is(':checked')) {
+        if ($jsLibs.is(':checked')) {
             $node.prop({
-				disabled: true
-			});
+                disabled: true
+            });
             $node.parent().addClass('disabled');
-			jsLibrariesCost = 100;
+            jsLibrariesCost = 100;
 
-		} else {
+        } else {
             $node.prop({
-				disabled: false
-			});
+                disabled: false
+            });
             $node.parent().removeClass('disabled');
-			jsLibrariesCost = 0;
-		}
+            jsLibrariesCost = 0;
+        }
 
-		if ($node.is(':checked')) {
-			$jsLibs.prop({
-				disabled: true
-			});
+        if ($node.is(':checked')) {
+            $jsLibs.prop({
+                disabled: true
+            });
             $jsLibs.parent().addClass('disabled');
-			nodeCost = 100;
-		} else {
-			$jsLibs.prop({
-				disabled: false
-			});
+            nodeCost = 100;
+        } else {
+            $jsLibs.prop({
+                disabled: false
+            });
             $jsLibs.parent().removeClass('disabled');
-			nodeCost = 0;
-		}
+            nodeCost = 0;
+        }
 
-		if ($buildTools.is(':checked')) {
-			buildToolsCost = 100;
-		} else {
-			buildToolsCost = 0;
-		}
+        if ($buildTools.is(':checked')) {
+            buildToolsCost = 100;
+        } else {
+            buildToolsCost = 0;
+        }
 
-		if ($npm.is(':checked')) {
-			npmCost = 100;
-		} else {
-			npmCost = 0;
-		}
+        if ($npm.is(':checked')) {
+            npmCost = 100;
+        } else {
+            npmCost = 0;
+        }
 
-		getTotalCost();
-		$('#total-cost').html('Total: ' + '$' + totalCost);
-	});
+        getTotalCost();
+        $('#total-cost').html('Total: ' + '$' + totalCost);
+    });
 
-	//PAYMENT METHODS
-	// Whichever payment method is selected, only the information about that payment method will display
+    //PAYMENT METHODS
+    // Whichever payment method is selected, only the information about that payment method will display
 
-	// By default, credit card is selected, and other method divs are hidden
+    // By default, credit card is selected, and other method divs are hidden
     $paypal.hide();
     $bitcoin.hide();
 
     $paymentType.change(function () {
 
-		const $paymentMethod = $paymentType.val();
+        const $paymentMethod = $paymentType.val();
 
 
-		for (let i = 0; i <= $paymentType.children().length; i++) {
-			if ($paymentMethod === 'credit card') {
+        for (let i = 0; i <= $paymentType.children().length; i++) {
+            if ($paymentMethod === 'credit card') {
                 $paypal.hide();
                 $bitcoin.hide();
                 $creditCard.show();
-			} else if ($paymentMethod === 'paypal') {
+            } else if ($paymentMethod === 'paypal') {
                 $creditCard.hide();
                 $bitcoin.hide();
                 $paypal.show();
-			} else if ($paymentMethod === 'bitcoin') {
+            } else if ($paymentMethod === 'bitcoin') {
                 $creditCard.hide();
                 $paypal.hide();
                 $bitcoin.show();
-			} else if ($paymentMethod === 'select_method') {
+            } else if ($paymentMethod === 'select_method') {
                 $creditCard.hide();
                 $paypal.hide();
                 $bitcoin.hide();
-			}
-		}
-	});
+            }
+        }
+    });
 
     // FORM VALIDATION
 
